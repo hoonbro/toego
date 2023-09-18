@@ -1,7 +1,6 @@
 package com.project.toego.infrastructure.member;
 
-import com.project.toego.common.error.ErrorCode;
-import com.project.toego.common.exception.BaseException;
+import com.project.toego.common.exception.EntityNotFoundException;
 import com.project.toego.domain.memer.Member;
 import com.project.toego.domain.memer.MemberReader;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +16,6 @@ public class MemberReaderImpl implements MemberReader {
     @Override
     public Member getMember(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new BaseException(ErrorCode.ENTITY_NOT_FOUND));
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
