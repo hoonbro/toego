@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/toego?serverTimezone=UTC&characterEncoding=UTF-8
+    password: '1234'
+  security:
+  user:
+    name: user
+    password: '1234'
+  jpa:
+    properties:
+      hibernate:
+        format_sql: 'true'
+        show-sql: 'true'
+  hibernate:
+    ddl-auto: update
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+
+springdoc:
+  # http://localhost:8080/api/v1/swagger-ui/index.html
+  # http://localhost:8080/api/v1/v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
