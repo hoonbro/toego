@@ -7,6 +7,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,18 +49,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      *                400 BAD_REQUEST와 @Validatino의 message 의 값이 반환된다.
      *
      **/
-//    @Override
-//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-//        List<String> messages = ex.getBindingResult().getFieldErrors()
-//                .stream()
-//                .map(e -> e.getDefaultMessage())
-//                .collect(Collectors.toList());
-//
-//        log.error("handleMethodArgumentNotValid throw ValidateException : {}", status.BAD_REQUEST);
-//
-//        Map<String, Object> body = ErrorResponse.toBody(ErrorCode.INVALID_INPUT_VALUE, messages);
-//
-//        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-//
-//    }
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatusCode status,
+                                                                  WebRequest request){
+        List<String> messages = ex.getBindingResult().getFieldErrors()
+                .stream()
+                .map(e -> e.getDefaultMessage())
+                .collect(Collectors.toList());
+
+        log.error("handleMethodArgumentNotValid throw ValidateException : {}", HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> body = ErrorResponse.toBody(ErrorCode.INVALID_PARAMETER, messages);
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+
+    }
 }
