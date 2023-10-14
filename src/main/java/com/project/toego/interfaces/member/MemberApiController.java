@@ -1,6 +1,7 @@
 package com.project.toego.interfaces.member;
 
 import com.project.toego.application.member.MemberFacade;
+import com.project.toego.domain.memer.MemberCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,10 @@ public class MemberApiController {
     private final MemberFacade memberFacade;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerMember(@Validated @RequestBody MemberDto.RegisterMember request){
-        MemberDto.Response response = memberFacade.registerMember(request);
+    public ResponseEntity<?> registerMember(@Validated @RequestBody MemberDto.RegisterMemberRequest request){
+        var command = request.toCommand();
+        var memberInfo = memberFacade.registerMember(command);
+        var response = new MemberDto.Response(memberInfo);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

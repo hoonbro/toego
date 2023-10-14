@@ -1,6 +1,8 @@
 package com.project.toego.interfaces.member;
 
 import com.project.toego.domain.memer.Member;
+import com.project.toego.domain.memer.MemberCommand;
+import com.project.toego.domain.memer.MemberInfo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +12,7 @@ import lombok.ToString;
 public class MemberDto {
     @Getter
     @ToString
-    public static class RegisterMember{
+    public static class RegisterMemberRequest{
         @Email(message = "email 형식에 맞아야합니다.")
         @NotNull(message = "email 은 필수값입니다.")
         private String email;
@@ -24,8 +26,8 @@ public class MemberDto {
         @NotBlank(message = "job 은 필수값입니다.")
         private String job;
 
-        public Member toEntity(){
-            return Member.builder()
+        public MemberCommand.RegisterMember toCommand(){
+            return MemberCommand.RegisterMember.builder()
                     .email(email)
                     .password(password)
                     .nickName(nickName)
@@ -45,11 +47,11 @@ public class MemberDto {
 
         private String job;
 
-        public Response(Member member){
-            this.email = member.getEmail();
-            this.password = member.getPassword();
-            this.nickName = member.getNickName();
-            this.job = member.getJob();
+        public Response(MemberInfo memberInfo){
+            this.email = memberInfo.getEmail();
+            this.password = memberInfo.getPassword();
+            this.nickName = memberInfo.getNickName();
+            this.job = memberInfo.getJob();
         }
     }
 }

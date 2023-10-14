@@ -1,5 +1,7 @@
 package com.project.toego.application.member;
 
+import com.project.toego.domain.memer.MemberCommand;
+import com.project.toego.domain.memer.MemberInfo;
 import com.project.toego.domain.memer.MemberService;
 import com.project.toego.interfaces.member.MemberDto;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +15,8 @@ public class MemberFacade {
 
     private final MemberService memberService;
 
-    public MemberDto.Response registerMember(MemberDto.RegisterMember request){
-        var response = memberService.registerMember(request);
+    public MemberInfo registerMember(MemberCommand.RegisterMember command){
+        var response = memberService.registerMember(command);
         return response;
     }
 }

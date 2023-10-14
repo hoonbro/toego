@@ -13,9 +13,9 @@ public class MemberServiceImpl implements MemberService{
     private final MemberStore memberStore;
 
     @Override
-    public MemberDto.Response registerMember(MemberDto.RegisterMember request) {
-        var requestMember = request.toEntity();
+    public MemberInfo registerMember(MemberCommand.RegisterMember command) {
+        var requestMember = command.toEntity();
         Member member = memberStore.store(requestMember);
-        return new MemberDto.Response(member);
+        return new MemberInfo(member);
     }
 }
