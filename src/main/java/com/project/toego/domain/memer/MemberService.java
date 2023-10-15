@@ -4,4 +4,6 @@ import com.project.toego.interfaces.member.MemberDto;
 
 public interface MemberService {
     MemberInfo registerMember(MemberCommand.RegisterMember command);
+
+    MemberInfo getMemberInfo(String memberToken);
 }
